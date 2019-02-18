@@ -173,5 +173,4 @@ public class Main {
 
 ![方法](https://github.com/guofeiwu/Java-interview-starter/blob/master/%E5%9B%BE%E7%89%87/2.jpg)
 
-> notify/notifyAll和wait方法，在使用这3个方法时，必须处于synchronized代码块或者synchronized方法中，否则就会抛出IllegalMonitorStateException异常，这是因为调用这几个方法前必须拿到当前对象的监视器monitor对象，也就是说notify/notifyAll和wait方法依赖于monitor对象。并且每个对象都可以作为锁 。
-
+> 每个对象都可以作为锁 ，notify/notifyAll和wait方法，在使用这3个方法时，必须处于synchronized代码块或者synchronized方法中，否则就会抛出IllegalMonitorStateException异常，这是因为调用这几个方法前必须拿到当前对象的监视器monitor对象，也就是说notify/notifyAll和wait方法依赖于monitor对象。
