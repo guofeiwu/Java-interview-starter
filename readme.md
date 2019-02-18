@@ -28,6 +28,7 @@
 - 什么是Java序列化和反序列化，如何实现Java序列化？或者请解释Serializable 接口的作用 。
 
 - Object类中常见的方法，为什么wait  notify会放在Object里边？ 
+
 ...
 #### [java集合](https://github.com/guofeiwu/Java-interview-starter/blob/master/1%E3%80%81Java%E7%9B%B8%E5%85%B3/collection.md)
 
