@@ -57,7 +57,7 @@
 
 - Map
 
-> 一、它有四个实现类,分别是 HashMap Hashtable LinkedHashMap 和TreeMap，ConcurrentHashMap 。
+> 一、它有常用的五个实现类,分别是 HashMap Hashtable LinkedHashMap 和TreeMap，ConcurrentHashMap 。
 >
 > 二、Map主要用于存储健值对，根据键得到值，因此不允许键重复(重复了覆盖了),但允许值重复。
 >
