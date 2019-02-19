@@ -30,7 +30,7 @@
 > private void grow(int minCapacity) {
 >         // overflow-conscious code
 >         int oldCapacity = elementData.length;
->         int newCapacity = oldCapacity + ((capacityIncrement > 0) ?                  capacityIncrement : oldCapacity);
+>         int newCapacity = oldCapacity + ((capacityIncrement > 0) ?capacityIncrement : oldCapacity);
 >         if (newCapacity - minCapacity < 0)
 >             newCapacity = minCapacity;
 >         if (newCapacity - MAX_ARRAY_SIZE > 0)
