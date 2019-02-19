@@ -30,7 +30,7 @@
 - Object类中常见的方法，为什么wait  notify会放在Object里边？ 
 
 ...
-#### [java集合](https://github.com/guofeiwu/Java-interview-starter/blob/master/1%E3%80%81Java%E7%9B%B8%E5%85%B3/collection.md)
+#### java集合
 
 ### 1.2、数据存储
 ### 1.3、消息队列
