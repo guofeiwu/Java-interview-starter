@@ -15,11 +15,11 @@
 
 （1）**串行方式**：将注册信息写入数据库成功后，发送注册邮件，再发送注册短信。以上三个任务全部完成后，返回给客户端。
 
- ![img](http://finalshares.cn/attachment/threadsImgs/images2015.cnblogs.com/blog/820332/201601/820332-20160124211106000-2080222350.png)
+ ![img](https://images2015.cnblogs.com/blog/270324/201607/270324-20160730141220778-784471498.png)
 
 （2）**并行方式**：将注册信息写入数据库成功后，发送注册邮件的同时，发送注册短信。以上三个任务完成后，返回给客户端。与串行的差别是，并行的方式可以提高处理的时间。
 
- ![img](http://finalshares.cn/attachment/threadsImgs/images2015.cnblogs.com/blog/820332/201601/820332-20160124211115703-218873208.png)
+ ![img](https://images2015.cnblogs.com/blog/270324/201607/270324-20160730141228575-679122919.png)
 
 假设三个业务节点每个使用50毫秒钟，不考虑网络等其他开销，则串行方式的时间是150毫秒，并行的时间可能是100毫秒。
 
@@ -31,7 +31,7 @@
 
 引入消息队列，将不是必须的业务逻辑，异步处理。改造后的架构如下：
 
- ![img](http://finalshares.cn/attachment/threadsImgs/images2015.cnblogs.com/blog/820332/201601/820332-20160124211131625-1083908699.png)
+ ![img](https://images2015.cnblogs.com/blog/270324/201607/270324-20160730141236169-1140938329.png)
 
 按照以上约定，用户的响应时间相当于是注册信息写入数据库的时间，也就是50毫秒。注册邮件，发送短信写入消息队列后，直接返回，因此写入消息队列的速度很快，基本可以忽略，因此用户的响应时间可能是50毫秒。因此架构改变后，系统的吞吐量提高到每秒20 QPS。比串行提高了3倍，比并行提高了两倍。
 
@@ -39,7 +39,7 @@
 
 场景说明：用户下单后，订单系统需要通知库存系统。传统的做法是，订单系统调用库存系统的接口。如下图：
 
- ![img](http://finalshares.cn/attachment/threadsImgs/images2015.cnblogs.com/blog/820332/201601/820332-20160124211254187-1511483255.png)
+ ![img](https://images2015.cnblogs.com/blog/270324/201607/270324-20160730143219809-1948583125.png)
 
 传统模式的缺点：
 
@@ -49,7 +49,7 @@
 
 如何解决以上问题呢？引入应用消息队列后的方案，如下图：
 
- ![img](http://finalshares.cn/attachment/threadsImgs/images2015.cnblogs.com/blog/820332/201601/820332-20160124211307687-1914946501.png)
+ ![img](https://images2015.cnblogs.com/blog/270324/201607/270324-20160730143228325-953675504.png)
 
 - 订单系统：用户下单后，订单系统完成持久化处理，将消息写入消息队列，返回用户订单下单成功。
 - 库存系统：订阅下单的消息，采用拉/推的方式，获取下单信息，库存系统根据下单信息，进行库存操作。
@@ -64,7 +64,7 @@
 1. 可以控制活动的人数；
 2. 可以缓解短时间内高流量压垮应用；
 
- ![img](http://finalshares.cn/attachment/threadsImgs/images2015.cnblogs.com/blog/820332/201601/820332-20160124211333125-923847962.png)
+ ![img](https://images2015.cnblogs.com/blog/270324/201607/270324-20160730151710106-2043115158.png)
 
 1. 用户的请求，[服务器](https://www.baidu.com/s?wd=%E6%9C%8D%E5%8A%A1%E5%99%A8&tn=24004469_oem_dg&rsv_dl=gh_pl_sl_csd)接收后，首先写入消息队列。假如消息队列长度超过最大数量，则直接抛弃用户请求或跳转到错误页面；
 2. 秒杀业务根据消息队列中的请求信息，再做后续处理。
@@ -73,15 +73,13 @@
 
 日志处理是指将消息队列用在日志处理中，比如Kafka的应用，解决大量日志传输的问题。架构简化如下：
 
- ![img](http://finalshares.cn/attachment/threadsImgs/images2015.cnblogs.com/blog/820332/201601/820332-20160124211436718-1054529852.png)
+ ![img](https://images2015.cnblogs.com/blog/270324/201607/270324-20160730152810934-1818295010.png)
 
 - 日志采集客户端，负责日志数据采集，定时写受写入Kafka队列；
 - Kafka消息队列，负责日志数据的接收，存储和转发；
 - 日志处理应用：订阅并消费kafka队列中的日志数据；
 
 以下是新浪**kafka日志处理**应用案例：转自（[新浪技术分享：我们如何扛下32亿条实时日志的分析处理](http://cloud.51cto.com/art/201507/484338.htm)）
-
-![img](http://finalshares.cn/attachment/threadsImgs/images2015.cnblogs.com/blog/820332/201601/820332-20160124211447875-1251492581.png)
 
 (1)**Kafka**：接收用户日志的消息队列。
 
@@ -97,13 +95,13 @@
 
 点对点通讯：
 
- ![img](http://finalshares.cn/attachment/threadsImgs/images2015.cnblogs.com/blog/820332/201601/820332-20160124211500718-1411703435.png)
+ ![img](https://images2015.cnblogs.com/blog/270324/201607/270324-20160730153544294-1894255488.png)
 
 客户端A和客户端B使用同一队列，进行消息通讯。
 
 聊天室通讯：
 
- ![img](http://finalshares.cn/attachment/threadsImgs/images2015.cnblogs.com/blog/820332/201601/820332-20160124211511859-1166529202.png)
+ ![img](https://images2015.cnblogs.com/blog/270324/201607/270324-20160730153550184-1160563716.png)
 
 客户端A，客户端B，客户端N订阅同一主题，进行消息发布和接收。实现类似聊天室效果。
 
@@ -115,7 +113,7 @@
 
 **P2P模式：**
 
-![img](http://finalshares.cn/attachment/threadsImgs/images2015.cnblogs.com/blog/820332/201601/820332-20160124221143281-46837068.png)
+![img](https://images2015.cnblogs.com/blog/270324/201608/270324-20160802140753731-1936750467.png)
 
 P2P模式包含三个角色：**消息队列**（Queue），**发送者**(Sender)，**接收者**(Receiver)。每个消息都被发送到一个特定的队列，接收者从队列中获取消息。队列保留着消息，直到他们被消费或超时。
 P2P的特点
@@ -130,7 +128,7 @@ P2P的特点
 
 **Pub/sub模式：**
 
-![img](http://finalshares.cn/attachment/threadsImgs/images2015.cnblogs.com/blog/820332/201601/820332-20160124221155968-1666724216.png)
+![img](https://images2015.cnblogs.com/blog/270324/201608/270324-20160802140802043-807024073.png)
 
 包含三个角色：**主题**（Topic），**发布者**（[Publisher](https://www.baidu.com/s?wd=Publisher&tn=24004469_oem_dg&rsv_dl=gh_pl_sl_csd)），**订阅者**（Subscriber） 。多个发布者将消息发送到Topic,系统将这些消息传递给多个订阅者。
 **Pub/Sub**的特点
