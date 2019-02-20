@@ -35,6 +35,7 @@
 
 ### 1.2、数据存储
 ### 1.3、消息队列
+####[MQ入门总结](https://github.com/guofeiwu/Java-interview-starter/blob/master/3%E3%80%81%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/MQ%E5%85%A5%E9%97%A8%E6%80%BB%E7%BB%93.md)
 ### 1.4、开源框架
 ### 1.5、分布式
 ### 1.6、微服务
